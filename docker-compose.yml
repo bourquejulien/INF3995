@@ -1,0 +1,57 @@
+version: '3.4'
+
+x-app: &default
+  networks:
+    - mynetwork
+  
+services:
+  # mongo:
+  #   image: mongo
+  #   hostname: mongo
+  #   networks:
+  #     - mynetwork
+  #   volumes:
+  #     - mongo_data:/data/db
+
+  webui:
+    <<: *default
+    build:
+      context: ./INF3995-web-ui
+      dockerfile: ./Dockerfile
+    hostname: webui
+    depends_on:
+      - backend
+    ports:
+      - "5001:5001"
+
+  backend:
+    <<: *default
+    build:
+      context: ./INF3995-backend
+      dockerfile: ./Dockerfile
+    hostname: backend
+    ports:
+      - "5000:5000"
+  
+  simulator:
+    <<: *default
+    build:
+      context: ./INF3995-argos-simulation
+      dockerfile: ./Dockerfile
+      args:
+        - WEB_SOCKET_PORT=8001
+        - SIMULATION_PORT=9854
+    hostname: simulation
+    depends_on:
+      - backend
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+      - "9854:9854"
+
+
+networks:
+  mynetwork:
+
+# volumes:
+#   mongo_data:
