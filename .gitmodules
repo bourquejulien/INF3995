@@ -1,12 +1,16 @@
 [submodule "INF3995-argos-simulation"]
 	path = INF3995-argos-simulation
 	url = git@github.com:bourquejulien/INF3995-argos-simulation.git
+	branch = master
 [submodule "INF3995-backend"]
 	path = INF3995-backend
 	url = git@github.com:bourquejulien/INF3995-backend.git
+	branch = main
 [submodule "INF3995-web-ui"]
 	path = INF3995-web-ui
 	url = git@github.com:bourquejulien/INF3995-web-ui.git
+	branch = main
 [submodule "INF3995-firmware"]
 	path = INF3995-firmware
 	url = git@github.com:bourquejulien/INF3995-firmware.git
+	branch = master
