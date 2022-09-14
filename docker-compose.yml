@@ -29,6 +29,8 @@ services:
     build:
       context: ./INF3995-backend
       dockerfile: ./Dockerfile
+    environment:
+      SIMULATION_ADDR: simulation
     hostname: backend
     ports:
       - "5000:5000"
