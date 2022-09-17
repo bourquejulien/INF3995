@@ -13,21 +13,21 @@ services:
   #   volumes:
   #     - mongo_data:/data/db
 
-  webui:
+  client:
     <<: *default
     build:
-      context: ./INF3995-web-ui
+      context: ./backend/client
       dockerfile: ./Dockerfile
     hostname: webui
     depends_on:
-      - backend
+      - server
     ports:
       - "5001:5001"
 
-  backend:
+  server:
     <<: *default
     build:
-      context: ./INF3995-backend
+      context: ./INF3995-backend/server
       dockerfile: ./Dockerfile
     environment:
       SIMULATION_ADDR: simulation
@@ -45,7 +45,7 @@ services:
         - SIMULATION_PORT=9854
     hostname: simulation
     depends_on:
-      - backend
+      - server
     ports:
       - "8000:8000"
       - "8001:8001"
