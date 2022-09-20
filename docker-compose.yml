@@ -27,7 +27,7 @@ services:
   server:
     <<: *default
     build:
-      context: ./INF3995-backend/server
+      context: ./backend/server
       dockerfile: ./Dockerfile
     environment:
       SIMULATION_ADDR: simulation
@@ -38,7 +38,7 @@ services:
   simulator:
     <<: *default
     build:
-      context: ./INF3995-argos-simulation
+      context: ./simulation
       dockerfile: ./Dockerfile
       args:
         - WEB_SOCKET_PORT=8001
