@@ -1,12 +1,12 @@
 [submodule "INF3995-argos-simulation"]
 	path = simulation
-	url = git@gitlab.com:polytechnique-montr-al/inf3995/20223/equipe-105/INF3995-argos-simulation.git
+	url = ../INF3995-argos-simulation.git
 	branch = master
 [submodule "INF3995-backend"]
 	path = backend
-	url = git@gitlab.com:polytechnique-montr-al/inf3995/20223/equipe-105/INF3995-backend.git
+	url = ../INF3995-backend.git
 	branch = main
 [submodule "INF3995-firmware"]
 	path = firmware
-	url = git@gitlab.com:polytechnique-montr-al/inf3995/20223/equipe-105/INF3995-firmware.git
+	url = ../INF3995-firmware.git
 	branch = master
