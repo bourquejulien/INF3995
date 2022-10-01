@@ -1,20 +1,29 @@
 # INF3995 Swarm project
 
-This repo aggregates all repos of the project.
+Ce dépot inclut tous les répertoires de code de l'équipe 105
 
-This includes :
+Ceci inclus:
+- simulation: La simulation Argos
+- backend: L'interface web et le serveur de la base au sol
+- firmware: Le programme embarqué des drones
 
-- argos-simulation
-- backend
-- web-ui
-- firmware
+## Comment démarrer le projet
 
-## Docker Compose
+### Prérequis
+- Docker 
+- Docker-compose
+- make
 
-The provided ``docker-compose.yml`` file helps launch all dependencies at one.
-
-Use the following command in order to launch the simulation :
-
+### Procédure
+1. Cloner les submodules avec les commandes ci-dessous:
+```bash
+git submodule init
+git submodule update --recursive --jobs 3
+```
+2. Aller voir la documentation du répertoire firmware afin de compiler le code et flasher les drones
+3. Dans INF3995-105, utiliser la commande suivante pour lancer les modules:
 ```bash
 docker-compose up
 ```
+4. Se connecter à l'interface web sur votre navigateur à localhost:5000
+
