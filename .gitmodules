@@ -9,4 +9,4 @@
 [submodule "INF3995-firmware"]
 	path = firmware
 	url = ../INF3995-firmware.git
-	branch = master
+	branch = main

@@ -1,5 +1,3 @@
-version: '3.4'
-
 x-app: &default
   networks:
     - mynetwork
@@ -18,6 +16,7 @@ services:
     build:
       context: ./backend/client
       dockerfile: ./Dockerfile
+      target: final
     hostname: webui
     depends_on:
       - server
@@ -29,9 +28,14 @@ services:
     build:
       context: ./backend/server
       dockerfile: ./Dockerfile
+      target: final
     environment:
       SIMULATION_ADDR: simulation
+      IS_SIMULATION: ${IS_SIMULATION}
     hostname: backend
+    privileged: true
+    volumes:
+      - "/dev:/dev"
     ports:
       - "5000:5000"
   
