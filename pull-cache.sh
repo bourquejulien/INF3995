@@ -5,6 +5,7 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+FORCE_LOGIN=false
 REGISTRY="registry.gitlab.com"
 BASE_PATH="polytechnique-montr-al/inf3995/20223/equipe-105"
 TAG="latest"
@@ -12,7 +13,24 @@ IMAGES=("inf3995-argos-simulation"
 	"inf3995-backend/client"
 	"inf3995-backend/server")
 
-if ! grep --quiet $REGISTRY ~/.docker/config.json ; then
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -f)
+      IMAGES+=("inf3995-firmware")
+      shift
+      ;;
+    -l)
+      FORCE_LOGIN=true
+      shift
+      ;;
+    *)
+      echo "Unknown option $1"
+      exit 1
+      ;;
+  esac
+done
+
+if $FORCE_LOGIN || ! grep --quiet $REGISTRY ~/.docker/config.json ; then
     echo "Enter Gitlab username:"
     read USER
     echo "Enter Gitlab password/token:"
@@ -34,4 +52,3 @@ for IMAGE in "${IMAGES[@]}"
 do
     docker pull "$REGISTRY/$BASE_PATH/$IMAGE:$TAG"
 done
-
