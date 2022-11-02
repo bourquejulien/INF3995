@@ -3,13 +3,19 @@ x-app: &default
     - mynetwork
   
 services:
-  # mongo:
-  #   image: mongo
-  #   hostname: mongo
-  #   networks:
-  #     - mynetwork
-  #   volumes:
-  #     - mongo_data:/data/db
+  mongodb:
+    image : mongo
+    container_name: mongodb
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MONGO_INITDB_ROOT_USERNAME=local
+      - MONGO_INITDB_ROOT_PASSWORD=lacol
+    volumes:
+      - mongoVolume:/data/db
+    ports:
+      - 5002:27017
+    restart: unless-stopped
 
   client:
     <<: *default
@@ -36,6 +42,8 @@ services:
     privileged: true
     volumes:
       - "/dev:/dev"
+    depends_on:
+      - mongodb
     ports:
       - "5000:5000"
   
@@ -55,9 +63,8 @@ services:
       - "8001:8001"
       - "9854:9854"
 
-
 networks:
   mynetwork:
 
-# volumes:
-#   mongo_data:
+volumes:
+  mongoVolume: {}
