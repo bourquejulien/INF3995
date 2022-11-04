@@ -1,20 +1,37 @@
-x-app: &default
+x-app:
+  &default
   networks:
     - mynetwork
-  
+
 services:
-  mongodb:
-    image : mongo
-    container_name: mongodb
+  database:
+    <<: *default
+    image: mongo
+    container_name: project_database
+    hostname: database
     environment:
       - PUID=1000
       - PGID=1000
       - MONGO_INITDB_ROOT_USERNAME=local
       - MONGO_INITDB_ROOT_PASSWORD=lacol
     volumes:
-      - mongoVolume:/data/db
+      - ProjectMongoVolume:/data/db
     ports:
       - 5002:27017
+    restart: unless-stopped
+
+  simulator:
+    <<: *default
+    build:
+      context: ./simulation
+      dockerfile: ./Dockerfile
+      args:
+        - WEB_SOCKET_PORT=8001
+        - SIMULATION_PORT=9854
+    hostname: simulation
+    ports:
+      - "8000:8000"
+      - "8001:8001"
     restart: unless-stopped
 
   client:
@@ -28,6 +45,7 @@ services:
       - server
     ports:
       - "5001:5001"
+    restart: unless-stopped
 
   server:
     <<: *default
@@ -36,35 +54,23 @@ services:
       dockerfile: ./Dockerfile
       target: final
     environment:
-      SIMULATION_ADDR: simulation
+      DB_CONNECTION_STRING: "mongodb://local:lacol@database:27017/"
+      ARGOS_HOSTNAME: simulation
       IS_SIMULATION: ${IS_SIMULATION}
     hostname: backend
     privileged: true
     volumes:
       - "/dev:/dev"
     depends_on:
-      - mongodb
+      - database
+      - simulator
     ports:
       - "5000:5000"
-  
-  simulator:
-    <<: *default
-    build:
-      context: ./simulation
-      dockerfile: ./Dockerfile
-      args:
-        - WEB_SOCKET_PORT=8001
-        - SIMULATION_PORT=9854
-    hostname: simulation
-    depends_on:
-      - server
-    ports:
-      - "8000:8000"
-      - "8001:8001"
-      - "9854:9854"
+    restart: unless-stopped
 
 networks:
   mynetwork:
 
+
 volumes:
-  mongoVolume: {}
+  ProjectMongoVolume: {}
