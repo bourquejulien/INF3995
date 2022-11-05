@@ -17,8 +17,7 @@ Ceci inclus:
 ### Procédure
 1. Cloner les submodules avec les commandes ci-dessous:
 ```bash
-git submodule init
-git submodule update --recursive --jobs 3
+git submodule update --init --recursive --jobs 4
 ```
 2. Aller voir la documentation du répertoire firmware afin de compiler le code et flasher les drones
 3. Dans INF3995-105, utiliser la commande suivante pour lancer les modules :
