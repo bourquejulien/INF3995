@@ -34,6 +34,40 @@ services:
       - "8001:8001"
     restart: unless-stopped
 
+  remote-compiler:
+    <<: *default
+    build:
+      context: ./firmware
+      dockerfile: ./Dockerfile
+      target: final
+    environment:
+      REMOTE_COMPILER_PORT: 5003
+    hostname: compiler
+    restart: unless-stopped
+
+  server:
+    <<: *default
+    build:
+      context: ./backend/server
+      dockerfile: ./Dockerfile
+      target: final
+    environment:
+      DB_CONNECTION_STRING: "mongodb://local:lacol@database:27017/"
+      ARGOS_HOSTNAME: simulation
+      REMOTE_COMPILER_CONNECTION_STRING: compiler:5003
+      IS_SIMULATION: ${IS_SIMULATION}
+    hostname: backend
+    privileged: true
+    volumes:
+      - "/dev:/dev"
+    depends_on:
+      - database
+      - simulator
+      - remote-compiler
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+
   client:
     <<: *default
     build:
@@ -47,30 +81,8 @@ services:
       - "5001:5001"
     restart: unless-stopped
 
-  server:
-    <<: *default
-    build:
-      context: ./backend/server
-      dockerfile: ./Dockerfile
-      target: final
-    environment:
-      DB_CONNECTION_STRING: "mongodb://local:lacol@database:27017/"
-      ARGOS_HOSTNAME: simulation
-      IS_SIMULATION: ${IS_SIMULATION}
-    hostname: backend
-    privileged: true
-    volumes:
-      - "/dev:/dev"
-    depends_on:
-      - database
-      - simulator
-    ports:
-      - "5000:5000"
-    restart: unless-stopped
-
 networks:
   mynetwork:
-
 
 volumes:
   ProjectMongoVolume: {}
