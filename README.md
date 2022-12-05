@@ -21,7 +21,7 @@ git submodule update --init --recursive --jobs 4
 2. Aller voir la [documentation](firmware/README.md) du répertoire micrologiciel afin de compiler le code et flasher les drones.
 3. Dans INF3995-105, utiliser la commande suivante pour lancer les modules :
 ```bash
-export IS_SIMULATION= # True ou False selon le mode désiré
+export IS_SIMULATION= # True (mode simulation) ou False (mode drone)
 docker-compose up
 ```
 >  À noter qu'il est important de spécifier le mode à utiliser à l'aide de la variable d'environnement ``IS_SIMULATION``.
@@ -32,7 +32,7 @@ docker-compose up
 
 ## Formatage et linting
 
-L'infomation lié au fomatage est sprécisé dans la documentation à la racine de chaque module.
+L'infomation lié au formatage est spécifié dans la documentation présente à la racine de chaque module.
 
 De façon générale, les standards suivants sont utilisés :
 
