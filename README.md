@@ -7,6 +7,8 @@ Ceci inclut :
 - [Backend](backend/README.md) : L'interface web et le serveur de la base au sol.
 - [Firmware](firmware/README.md) : Le programme embarqué des drones.
 
+Pour visionner des videos demontrant les divers requis du projet, visiter [cette playlist](https://www.youtube.com/watch?v=SE6PGoNG7HE&list=PLoUd4HWatUyltAhvjY0_uYdeJNyxkJ2OQ).
+
 ## Comment démarrer le projet
 
 ### Prérequis
