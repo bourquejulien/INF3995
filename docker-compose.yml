@@ -25,9 +25,10 @@ services:
     build:
       context: ./simulation
       dockerfile: ./Dockerfile
+      target: final
       args:
         - WEB_SOCKET_PORT=8001
-        - SIMULATION_PORT=9854
+        - SIMULATION_PORT=9850
     hostname: simulation
     ports:
       - "8000:8000"

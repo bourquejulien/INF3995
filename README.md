@@ -24,13 +24,13 @@ git submodule update --init --recursive --jobs 4
 3. Dans INF3995-105, utiliser la commande suivante pour lancer les modules :
 ```bash
 export IS_SIMULATION= # True (mode simulation) ou False (mode drone)
-docker-compose up
+docker compose up --build
 ```
 >  À noter qu'il est important de spécifier le mode à utiliser à l'aide de la variable d'environnement ``IS_SIMULATION``.
 
 4. Se connecter à l'interface web sur votre navigateur à :
-- Station au sol : http://localhost:5000
-- Argos - Webviz : http://localhost:8080
+- Station au sol : http://localhost:5001
+- Argos - Webviz : http://localhost:8000
 
 ## Formatage et linting
 
