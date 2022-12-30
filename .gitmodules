@@ -1,12 +1,12 @@
-[submodule "INF3995-argos-simulation"]
+[submodule "simulation"]
 	path = simulation
-	url = ../INF3995-argos-simulation.git
-	branch = master
-[submodule "INF3995-backend"]
+	url = ../INF3995-simulation
+	branch = main
+[submodule "station"]
 	path = backend
-	url = ../INF3995-backend.git
+	url = ../INF3995-station
 	branch = main
 [submodule "INF3995-firmware"]
 	path = firmware
-	url = ../INF3995-firmware.git
+	url = ../INF3995-firmware
 	branch = main
